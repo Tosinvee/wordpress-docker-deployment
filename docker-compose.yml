@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /mnt/mysql-data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-app
+    restart: always
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    depends_on:
+      - db
